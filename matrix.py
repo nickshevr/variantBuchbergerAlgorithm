@@ -19,9 +19,11 @@ class Matrix:
         if isinstance(other, Vector):
             result = Vector(other.size)
             result.vectorData = [ 0 for i in range(other.size)]
-            for j in range(self.columns):
-                result.vectorData.append(0)
-                for i in range(self.lines):
-                    result.vectorData[j] += self.matrixData[j].vectorData[i] * other.vectorData[j]
+            # for j in range(self.columns):
+            #     for i in range(self.lines):
+            #         result.vectorData[j] += self.matrixData[j].vectorData[i] * other.vectorData[j]
+            for i in range(self.columns):
+                for j in range(self.lines):
+                    result.vectorData[i] += self.matrixData[j].vectorData[i] * other.vectorData[j]
 
-        return result;
+        return result

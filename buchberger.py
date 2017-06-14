@@ -20,7 +20,10 @@ u = Vector(equationsCount, True)
 A = Matrix(variablesCount, equationsCount, True)
 b = Vector(equationsCount, True)
 
-print len(G)
+print A.matrixData
+
+startLength = len(G)
+lengthDifference = 1
 
 def firstCheck(vectorOne, vectorTwo):
     return vectorOne > vectorTwo
@@ -31,13 +34,17 @@ def secondCheck(vectorOne, vectorTwo):
 def thirdCheck(vectorOne, vectorTwo):
     return -b < A*(vectorOne - vectorTwo) < b
 
+while lengthDifference != 0:
+    print lengthDifference
+    for i in range(len(G)):
+        for j in range(len(G)):
+            if i !=j & firstCheck(G[i], G[j]) & secondCheck(G[i], G[j]) & thirdCheck(G[i], G[j]):
+                G.append(G[i] - G[j])
 
-for i in range(len(G)):
-    for j in range(len(G)):
-        if firstCheck(G[i], G[j]) & secondCheck(G[i], G[j]) & thirdCheck(G[i], G[j]):
-            G.append(G[i] - G[j])
+    endLength = len(G)
+    lengthDifference = endLength - startLength
+    startLength = endLength
 
-print len(G)
 
 # print Vector.identity(equationsCount, 0).vectorData
 #
