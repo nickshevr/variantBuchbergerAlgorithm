@@ -13,12 +13,24 @@ from constants import *
 # print b > u
 # print b < u
 
-G = [Vector.identity(equationsCount, i) for i in range(variablesCount)]
-u = Vector(equationsCount, True)
-A = Matrix(variablesCount, equationsCount, True)
+G = [Vector.identity(variablesCount, i) for i in range(variablesCount)]
+u = Vector(variablesCount, True)
+A = Matrix(equationsCount, variablesCount, True)
 b = Vector(equationsCount, True)
 
-print (Matrix.test()*Vector.test([1, 2, 3])).vectorData
+print "A: \n"
+
+A.mprint()
+
+print "B: \n"
+
+print b.vectorData
+
+print "U: \n"
+
+print u.vectorData
+
+print "\n"
 
 print len(G)
 
@@ -31,13 +43,27 @@ def secondCheck(vectorOne, vectorTwo):
 def thirdCheck(vectorOne, vectorTwo):
     return -b < A*(vectorOne - vectorTwo) < b
 
+isLengthChanged = True
 
-for i in range(len(G)):
-    for j in range(len(G)):
-        if firstCheck(G[i], G[j]) & secondCheck(G[i], G[j]) & thirdCheck(G[i], G[j]):
-            G.append(G[i] - G[j])
+while isLengthChanged:
+    startLength = len(G)
+    for i in range(len(G)):
+        for j in range(len(G)):
+            if firstCheck(G[i], G[j]) & secondCheck(G[i], G[j]) & thirdCheck(G[i], G[j]):
+                difference = G[i] - G[j]
+                isUnique = True
+                for k in G:
+                    if (k == difference):
+                        isUnique = False
+                if (isUnique):
+                    G.append(G[i] - G[j])
 
-print len(G)
+    endLength = len(G)
+    isLengthChanged = endLength != startLength
+    print endLength
+
+for i in G:
+    print i.vectorData
 
 # print Vector.identity(equationsCount, 0).vectorData
 #

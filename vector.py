@@ -7,6 +7,14 @@ class Vector:
         if shouldGenerate:
             self.vectorData = [random.randrange(elemMinValue, elemMaxValue) for y in range(size)]
 
+    def __eq__(self, other):
+        iseq = True
+        for y in range(self.size):
+            if self.vectorData[y] != other.vectorData[y]:
+                iseq = False
+                break
+        return iseq
+
     def __gt__(self, other):
         isgt = False
         for y in range(self.size):
@@ -40,7 +48,7 @@ class Vector:
     @staticmethod
     def test(list):
         identityMatrix = Vector(len(list), False)
-        identityMatrix.vectorData = list;
+        identityMatrix.vectorData = list
         return identityMatrix
 
     @staticmethod
