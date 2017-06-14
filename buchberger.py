@@ -2,8 +2,6 @@ from matrix import *
 from vector import *
 from constants import *
 
-
-
 #
 # G = Matrix.identity(variablesCount)
 #
@@ -19,6 +17,8 @@ G = [Vector.identity(equationsCount, i) for i in range(variablesCount)]
 u = Vector(equationsCount, True)
 A = Matrix(variablesCount, equationsCount, True)
 b = Vector(equationsCount, True)
+
+print (Matrix.test()*Vector.test([1, 2, 3])).vectorData
 
 print len(G)
 

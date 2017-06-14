@@ -15,13 +15,24 @@ class Matrix:
         identityMatrix.matrixData = [ Vector.identity(size, i) for i in range(size)]
         return identityMatrix
 
+    @staticmethod
+    def test():
+        identityMatrix = Matrix(2, 3, False)
+        identityMatrix.matrixData = [ Vector.test([2, 0, 2]), Vector.test([2, 1, 0])]
+        print identityMatrix.matrixData[0].vectorData;
+        print identityMatrix.matrixData[1].vectorData;
+        return identityMatrix
+
     def __mul__(self, other):
         if isinstance(other, Vector):
-            result = Vector(other.size)
-            result.vectorData = [ 0 for i in range(other.size)]
-            for j in range(self.columns):
-                result.vectorData.append(0)
-                for i in range(self.lines):
-                    result.vectorData[j] += self.matrixData[j].vectorData[i] * other.vectorData[j]
+            if self.columns != other.size:
+                raise TypeError();
+
+            result = Vector(self.columns)
+            result.vectorData = [0 for i in range(self.columns)]
+
+            for i in range(self.lines):
+                for j in range(self.columns):
+                    result.vectorData[i] += self.matrixData[i].vectorData[j] * other.vectorData[j]
 
         return result;
