@@ -2,7 +2,7 @@ import random
 from constants import *
 
 class Vector:
-    def __init__(self, size, shouldGenerate):
+    def __init__(self, size, shouldGenerate = False):
         self.size = size
         if shouldGenerate:
             self.vectorData = [random.randrange(elemMinValue, elemMaxValue) for y in range(size)]
@@ -16,10 +16,27 @@ class Vector:
         return isgt
 
     def __lt__(self, other):
-        result = other.__gt__(self)
+        result = self.__gt__(other)
         if result is NotImplemented:
             return result
         return not result
+
+    def __sub__(self, other):
+        result = Vector(self.size, False)
+        result.vectorData = []
+
+        for i in range(self.size):
+            result.vectorData.append(self.vectorData[i] - other.vectorData[i])
+        return result
+
+    def __neg__(self):
+        result = Vector(self.size, False)
+        result.vectorData = []
+
+        for i in range(self.size):
+            result.vectorData.append(-self.vectorData[i])
+        return result
+
 
     @staticmethod
     def identity(size, position):
