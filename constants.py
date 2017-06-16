@@ -2,4 +2,4 @@ variablesCount = 2
 equationsCount = 1
 
 elemMinValue = 0
-elemMaxValue = 20
+elemMaxValue = 5

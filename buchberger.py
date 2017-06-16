@@ -10,9 +10,9 @@ class buchBergerAlgorithm():
         self.variablesCount = variablesCount
         self.equationsCount = equationsCount
         self.G = [Vector.identity(variablesCount, i) for i in range(variablesCount)]
-        self.u = Vector.test([1, 1, 1, 1, 1, 1, 1])
+        #self.u = Vector.test([1, 1, 1, 1, 1, 1, 1])
         self.c = Vector(variablesCount, True)
-        #self.u = Vector(variablesCount, True)
+        self.u = Vector(variablesCount, True)
         self.A = Matrix(equationsCount, variablesCount, True)
         self.b = Vector(equationsCount, True)
         self.cacheSet = set()
@@ -31,19 +31,19 @@ class buchBergerAlgorithm():
     def inputPrint(self):
         print "C: \n"
 
-        print c.vectorData
+        print self.c.vectorData
 
         print "A: \n"
 
-        A.mprint()
+        self.A.mprint()
 
         print "B: \n"
 
-        print b.vectorData
+        print self.b.vectorData
 
         print "U: \n"
 
-        print u.vectorData
+        print self.u.vectorData
 
         print "\n"
 

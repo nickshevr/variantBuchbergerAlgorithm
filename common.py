@@ -4,8 +4,9 @@ lowerTime = 200
 maxTime = 0
 averageTime = 0
 
-for i in range(100):
+for i in range(10):
     solver = buchBergerAlgorithm(7, 2)
+    solver.inputPrint()
     time = solver.solve()
 
     averageTime += time
