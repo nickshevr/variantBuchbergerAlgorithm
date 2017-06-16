@@ -45,6 +45,18 @@ class Vector:
             result.vectorData.append(-self.vectorData[i])
         return result
 
+    def __mul__(self, other):
+        if isinstance(other, Vector):
+            if self.size != other.size:
+                raise TypeError()
+
+            result = 0
+
+            for i in range(self.size):
+                    result += self.vectorData[i] * other.vectorData[i]
+
+        return result
+
     @staticmethod
     def test(list):
         identityMatrix = Vector(len(list), False)
