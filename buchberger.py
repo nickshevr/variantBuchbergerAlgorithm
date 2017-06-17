@@ -4,7 +4,6 @@ from constants import *
 import timeit
 from time import time
 
-
 class buchBergerAlgorithm():
     def __init__(self, variablesCount, equationsCount):
         self.variablesCount = variablesCount
@@ -13,6 +12,7 @@ class buchBergerAlgorithm():
         #self.u = Vector.test([1, 1, 1, 1, 1, 1, 1])
         self.c = Vector(variablesCount, True)
         self.u = Vector(variablesCount, True)
+        self.normU = self.u.norm()
         self.A = Matrix(equationsCount, variablesCount, True)
         self.b = Vector(equationsCount, True)
         self.cacheSet = set()
@@ -52,7 +52,7 @@ class buchBergerAlgorithm():
         isLengthChanged = True
         t1 = time()
         #print len(self.G)
-        while isLengthChanged and endLength < 2000:
+        while isLengthChanged:
             startLength = len(self.G)
             for i in range(len(self.G)):
                 for j in range(len(self.G)):
@@ -89,7 +89,8 @@ class buchBergerAlgorithm():
 
         return {
             'time': t2-t1,
-            'endLength': lastLength
+            'endLength': lastLength,
+            'vectorU': self.normU
         }
 
 

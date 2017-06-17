@@ -1,5 +1,6 @@
 import random
 from constants import *
+import math
 
 class Vector:
     def __init__(self, size, shouldGenerate = False):
@@ -68,6 +69,14 @@ class Vector:
                     result += self.vectorData[i] * other.vectorData[i]
 
         return result
+
+    def norm(self):
+        result = 0
+
+        for i in range(self.size):
+            result+= self.vectorData[i] * self.vectorData[i]
+
+        return math.sqrt(result)
 
     @staticmethod
     def test(list):
