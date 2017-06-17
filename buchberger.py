@@ -79,13 +79,17 @@ class buchBergerAlgorithm():
             isLengthChanged = endLength != startLength
 
         t2 = time()
+        lastLength = endLength
 
         # for i in self.G:
         #     print i.vectorData
 
-        print "generation test field for %f seconds" % (t2 - t1)
+        #print "generation test field for %f seconds" % (t2 - t1)
 
-        return t2-t1
+        return {
+            'time': t2-t1,
+            'endLength': lastLength
+        }
 
 
 
