@@ -1,73 +1,91 @@
 from matrix import *
 from vector import *
 from constants import *
+import timeit
+from time import time
 
-#
-# G = Matrix.identity(variablesCount)
-#
-# print G.matrixData
-#
-# print b.vectorData
-# print u.vectorData
-#
-# print b > u
-# print b < u
 
-G = [Vector.identity(variablesCount, i) for i in range(variablesCount)]
-u = Vector(variablesCount, True)
-A = Matrix(equationsCount, variablesCount, True)
-b = Vector(equationsCount, True)
+class buchBergerAlgorithm():
+    def __init__(self, variablesCount, equationsCount):
+        self.variablesCount = variablesCount
+        self.equationsCount = equationsCount
+        self.G = [Vector.identity(variablesCount, i) for i in range(variablesCount)]
+        #self.u = Vector.test([1, 1, 1, 1, 1, 1, 1])
+        self.c = Vector(variablesCount, True)
+        self.u = Vector(variablesCount, True)
+        self.A = Matrix(equationsCount, variablesCount, True)
+        self.b = Vector(equationsCount, True)
+        self.cacheSet = set()
 
-print "A: \n"
+    def firstCheck(self, vectorOne, vectorTwo):
+        if vectorOne * self.c > vectorTwo * self.c:
+            return True
+        return vectorOne > vectorTwo
 
-A.mprint()
+    def secondCheck(self, vectorOne, vectorTwo):
+        return -self.u < vectorOne - vectorTwo < self.u
 
-print "B: \n"
+    def thirdCheck(self, vectorOne, vectorTwo):
+        return -self.b < self.A * (vectorOne - vectorTwo) and self.A * (vectorOne - vectorTwo) < self.b
 
-print b.vectorData
+    def inputPrint(self):
+        print "C: \n"
 
-print "U: \n"
+        print self.c.vectorData
 
-print u.vectorData
+        print "A: \n"
 
-print "\n"
+        self.A.mprint()
 
-print len(G)
+        print "B: \n"
 
-def firstCheck(vectorOne, vectorTwo):
-    return vectorOne > vectorTwo
+        print self.b.vectorData
 
-def secondCheck(vectorOne, vectorTwo):
-    return -u < vectorOne - vectorTwo < u
+        print "U: \n"
 
-def thirdCheck(vectorOne, vectorTwo):
-    return -b < A*(vectorOne - vectorTwo) < b
+        print self.u.vectorData
 
-isLengthChanged = True
+        print "\n"
 
-while isLengthChanged:
-    startLength = len(G)
-    for i in range(len(G)):
-        for j in range(len(G)):
-            if firstCheck(G[i], G[j]) & secondCheck(G[i], G[j]) & thirdCheck(G[i], G[j]):
-                difference = G[i] - G[j]
-                isUnique = True
-                for k in G:
-                    if (k == difference):
-                        isUnique = False
-                if (isUnique):
-                    G.append(G[i] - G[j])
+    def solve(self):
+        isLengthChanged = True
+        t1 = time()
+        #print len(self.G)
+        while isLengthChanged:
+            startLength = len(self.G)
+            for i in range(len(self.G)):
+                for j in range(len(self.G)):
+                    trigger = str(i) + "-" + str(j) in self.cacheSet
 
-    endLength = len(G)
-    isLengthChanged = endLength != startLength
-    print endLength
+                    if not trigger:
+                        self.cacheSet.add(str(i) + "-" + str(j))
+                        self.cacheSet.add(str(j) + "-" + str(i))
 
-for i in G:
-    print i.vectorData
+                    if i != j and not trigger and self.firstCheck(self.G[i], self.G[j]) and self.secondCheck(self.G[i], self.G[j]) and self.thirdCheck(
+                            self.G[i], self.G[j]):
+                        difference = self.G[i] - self.G[j]
+                        isUnique = True
+                        # print len(cacheSet)
+                        # print "Checked", i, j
+                        for k in self.G:
+                            if (k == difference):
+                                isUnique = False
+                                break
+                        if (isUnique):
+                            self.G.append(self.G[i] - self.G[j])
 
-# print Vector.identity(equationsCount, 0).vectorData
-#
-# identityMatrix = Matrix.identity(equationsCount)
-#
-# print identityMatrix.matrixData[0].vectorData > identityMatrix.matrixData[1].vectorData
+            endLength = len(self.G)
+            #print endLength
+            isLengthChanged = endLength != startLength
+
+        t2 = time()
+
+        # for i in self.G:
+        #     print i.vectorData
+
+        print "generation test field for %f seconds" % (t2 - t1)
+
+        return t2-t1
+
+
 
