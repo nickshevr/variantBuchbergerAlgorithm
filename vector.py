@@ -8,6 +8,9 @@ class Vector:
             self.vectorData = [random.randrange(elemMinValue, elemMaxValue) for y in range(size)]
 
     def __eq__(self, other):
+        if self.size != other.size:
+            raise TypeError()
+
         iseq = True
         for y in range(self.size):
             if self.vectorData[y] != other.vectorData[y]:
@@ -16,6 +19,9 @@ class Vector:
         return iseq
 
     def __gt__(self, other):
+        if self.size != other.size:
+            raise TypeError()
+
         isgt = False
         for y in range(self.size):
             if self.vectorData[y] > other.vectorData[y]:
@@ -24,12 +30,18 @@ class Vector:
         return isgt
 
     def __lt__(self, other):
+        if self.size != other.size:
+            raise TypeError()
+
         result = self.__gt__(other)
         if result is NotImplemented:
             return result
         return not result
 
     def __sub__(self, other):
+        if self.size != other.size:
+            raise TypeError()
+
         result = Vector(self.size, False)
         result.vectorData = []
 
@@ -59,9 +71,9 @@ class Vector:
 
     @staticmethod
     def test(list):
-        identityMatrix = Vector(len(list), False)
-        identityMatrix.vectorData = list
-        return identityMatrix
+        vector = Vector(len(list), False)
+        vector.vectorData = list
+        return vector
 
     @staticmethod
     def identity(size, position):
