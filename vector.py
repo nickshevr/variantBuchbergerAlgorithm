@@ -59,9 +59,6 @@ class Vector:
 
     def __mul__(self, other):
         if isinstance(other, Vector):
-            if self.size != other.size:
-                raise TypeError()
-
             result = 0
 
             for i in range(self.size):
