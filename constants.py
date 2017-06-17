@@ -1,5 +1,5 @@
-variablesCount = 2
-equationsCount = 1
+variablesCount = 10
+equationsCount = 6
 
-elemMinValue = 0
+elemMinValue = 1
 elemMaxValue = 5

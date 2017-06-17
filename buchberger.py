@@ -48,10 +48,11 @@ class buchBergerAlgorithm():
         print "\n"
 
     def solve(self):
+        endLength = 0
         isLengthChanged = True
         t1 = time()
         #print len(self.G)
-        while isLengthChanged:
+        while isLengthChanged and endLength < 2000:
             startLength = len(self.G)
             for i in range(len(self.G)):
                 for j in range(len(self.G)):

@@ -7,8 +7,8 @@ averageTime = 0
 
 es = Elasticsearch()
 
-for variablesCount in range(3, 15):
-    for i in range(100):
+for variablesCount in range(5, 15):
+    for i in range(10):
         solver = buchBergerAlgorithm(variablesCount, variablesCount-2)
         result = solver.solve()
         doc = {
