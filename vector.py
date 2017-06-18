@@ -8,9 +8,7 @@ class Vector:
             self.vectorData = [random.randrange(elemMinValue, elemMaxValue) for y in range(size)]
 
     def __eq__(self, other):
-        if self.size != other.size:
-            raise TypeError()
-
+       
         iseq = True
         for y in range(self.size):
             if self.vectorData[y] != other.vectorData[y]:
